@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ProjectSC.user.mapper.UserMapper">
+ 	<select id="selectUserSByLoginId" parameterType="String" resultType="com.ProjectSC.user.domain.UserSimple">
+ 		SELECT
+ 			`id`
+ 			, `loginId`
+ 			, `email`
+ 			, `createdAt`
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`loginId` = #{loginId}
+ 	</select>
+ 	<select id="selectUserByLoginIdAndPassword" parameterType="Map" resultType="com.ProjectSC.user.domain.User">
+ 		SELECT
+ 			`id`
+ 			, `loginId`
+ 			, `email`
+ 			, `password`
+ 			, `name`
+ 			, `phoneNumber`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`loginId` = #{loginId}
+ 			AND
+ 			`password` = #{password}
+ 	</select>
+ 	<insert id="insertUser" parameterType="com.ProjectSC.user.domain.User">
+  		INSERT INTO
+  			`user`
+  			(
+  				`loginId`
+  				, `email`
+  				, `password`
+  				, `name`
+  				, `phoneNumber`
+  				, `createdAt`
+  				, `updatedAt`
+  			)
+  		VALUES
+  			(
+  				#{loginId}
+  				, #{email}
+  				, #{password}
+  				, #{name}
+  				, #{phoneNumber}
+  				, NOW()
+  				, NOW()
+  			)
+ 	</insert>
+ </mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="d-flex">
 	<div class="logo bg-danger"></div>
 	<div>
@@ -20,10 +21,15 @@
 				</ul>
 			</div>
 			<div class="d-flex align-items-center col-4 bg-light" id="login">
-				<img src="/static/img/ui/user_default.png" class="img-thumbnail" width="50px" height="50px">
-				<span id="userName">USER1</span>
-				<button type="button" class="btn btn-primary p-1 m-2" id="mypage">마이페이지</button>
-				<a href="#">로그아웃</a>
+				<c:if test="${!empty userId}">
+					<img src="/static/img/ui/user_default.png" class="img-thumbnail" width="50px" height="50px">
+					<span id="userName">${userLoginId}</span>
+					<button type="button" class="btn btn-primary p-1 m-2" id="mypage">마이페이지</button>
+					<a href="/user/logout">로그아웃</a>
+				</c:if>
+				<c:if test="${empty userId}">
+					<a href="/user/login-view">로그인</a>
+				</c:if>
 			</div>
 		</div>
 		<div class="d-flex align-items-center" id="lowerHeader">
