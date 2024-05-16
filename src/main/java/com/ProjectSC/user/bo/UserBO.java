@@ -25,4 +25,8 @@ public class UserBO {
 	public User getUserByLoginIdAndPassword(String loginId, String hashedPassword) {
 		return userMapper.selectUserByLoginIdAndPassword(loginId, hashedPassword);
 	}
+
+	public UserSimple getUserSById(int userId) {
+		return userMapper.selectUserSById(userId);
+	}
 }

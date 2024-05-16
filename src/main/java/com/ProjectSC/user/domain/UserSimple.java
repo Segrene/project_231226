@@ -11,5 +11,6 @@ public class UserSimple {
 	private int id;
 	private String loginId;
 	private String email;
+	private String imagePath;
 	private Date createdAt;
 }

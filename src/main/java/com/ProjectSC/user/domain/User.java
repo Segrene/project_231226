@@ -14,6 +14,7 @@ public class User {
 	private String password;
 	private String name;
 	private String phoneNumber;
+	private String imagePath;
 	private Date createdAt;
 	private Date updatedAt;
 }

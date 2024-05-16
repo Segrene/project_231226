@@ -16,4 +16,6 @@ public interface UserMapper {
 			@Param("phoneNumber")String phoneNumber);
 
 	User selectUserByLoginIdAndPassword(@Param("loginId")String loginId, @Param("password")String hashedPassword);
+
+	UserSimple selectUserSById(int userId);
 }
