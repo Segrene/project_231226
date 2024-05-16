@@ -16,10 +16,10 @@
 		<div id="wrap">
 			<div class="login-form bg-light">
 				<div class="d-flex justify-content-center">
-					<h1 class="m-3">로그인</h1>
+					<h1 class="m-3">판매자 로그인</h1>
 				</div>
 				<div class="d-flex justify-content-center">
-					<form id="loginForm" method="post" action="/user/login"
+					<form id="loginForm" method="post" action="/seller/login"
 						class="col-8">
 						<div class="form-group mt-3">
 							<input type="text" id="loginId" name="loginId"
@@ -30,7 +30,7 @@
 								class="form-control" placeholder="비밀번호">
 						</div>
 						<div class="d-flex justify-content-between mt-3">
-							<a class="btn btn-dark mr-1" href="/user/sign-up-view">회원가입</a>
+							<a class="btn btn-dark mr-1" href="/seller/sign-up-view">회원가입</a>
 							<input type="submit" id="loginBtn" name="loginBtn" class="btn btn-primary ml-1" value="로그인">
 						</div>
 						<div class="mt-3">
