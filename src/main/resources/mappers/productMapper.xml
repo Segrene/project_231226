@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ProjectSC.product.mapper.ProductMapper">
+ 	<select id="selectAllProductList" resultType="com.ProjectSC.product.domain.ProductInfo">
+ 		SELECT
+ 			`id`
+ 			, `sellerId`
+ 			, `category`
+ 			, `subCategory`
+ 			, `name`
+ 			, `price`
+ 			, `discount`
+ 			, `deliveryType`
+ 			, `imagePath`
+ 		FROM
+ 			`product`
+ 	</select>
+ 	<select id="selectProductListByCategory" parameterType="int" resultType="com.ProjectSC.product.domain.ProductInfo">
+ 		SELECT
+ 			`id`
+ 			, `sellerId`
+ 			, `category`
+ 			, `subCategory`
+ 			, `name`
+ 			, `price`
+ 			, `discount`
+ 			, `deliveryType`
+ 			, `imagePath`
+ 		FROM
+ 			`product`
+ 		WHERE
+ 			`category` = #{category}
+ 	</select>
+ 	<select id="selectProductListByCategoryAndSubCategory" parameterType="map" resultType="com.ProjectSC.product.domain.ProductInfo">
+ 		SELECT
+ 			`id`
+ 			, `sellerId`
+ 			, `category`
+ 			, `subCategory`
+ 			, `name`
+ 			, `price`
+ 			, `discount`
+ 			, `deliveryType`
+ 			, `imagePath`
+ 		FROM
+ 			`product`
+ 		WHERE
+ 			`category` = #{category}
+ 			AND
+ 			`subCategory` = #{subCategory}
+ 	</select>
+ </mapper>

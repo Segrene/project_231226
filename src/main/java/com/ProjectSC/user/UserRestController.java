@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ProjectSC.common.EncryptUtils;
 import com.ProjectSC.user.bo.UserBO;
 import com.ProjectSC.user.domain.User;
-import com.ProjectSC.user.domain.UserSimple;
+import com.ProjectSC.user.domain.UserInfo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -28,7 +28,7 @@ public class UserRestController {
 	public Map<String, Object> isDuplicatedId(
 			@RequestParam("loginId")String loginId) {
 		Map<String, Object> result = new HashMap<>();
-		UserSimple user = userBO.GetUserSByLoginId(loginId);
+		UserInfo user = userBO.GetUserSByLoginId(loginId);
 		if (user != null) {
 			result.put("code", 200);
 			result.put("is_duplicated_id", true);

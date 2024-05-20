@@ -11,10 +11,29 @@ header {width:1300px;}
 #mypage {font-size:12px;}
 #lowerHeader {width:1200px; height:50px;}
 
-#category {width:100px; height:100%; min-height:800px;}
+#sideCategory {width:100px; height:100%; min-height:800px;}
 
 #promotion {width:400px; height:400px;}
 #best {width:400px; height:400px;}
 #gallery {width:400px; height:400px;}
 
 .login-form {width:600px; height:100vh;}
+
+#PListCategory {font-size:28px;}
+#PListSubCategory {font-size:20px;}
+
+#productList {width:1200px; min-height:800px;}
+#productCategory {width:1200px; height:100px;}
+.PBox {width:240px; height:400px;}
+.PThumbnail {width:240px; height:240px;}
+.PName {font-size:20px;}
+.PPrice {font-size:16px;}
+.PDiscount {font-size:24px;}
+
+#PRImage {width:600px; height:700px;}
+#PROption {width:600px; height:700px;}
+
+
+
+
+.footer {width:1300px; height:100px;}

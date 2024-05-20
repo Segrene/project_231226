@@ -61,6 +61,14 @@
 						<div class="form-group mt-3">
 							<input type="text" id="businessType" name="businessType"
 								class="form-control" placeholder="업종">
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Dropdown button</button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="#">Action</a>
+									<a class="dropdown-item" href="#">Another action</a>
+									<a class="dropdown-item" href="#">Something else here</a>
+								</div>
+							</div>
 						</div>
 						<div class="d-flex justify-content-center mt-3">
 							<input type="submit" id="signUpBtn" name="signUpBtn" class="btn btn-primary ml-1" value="회원가입">

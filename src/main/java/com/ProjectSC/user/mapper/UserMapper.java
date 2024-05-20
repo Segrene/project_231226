@@ -4,12 +4,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.ProjectSC.user.domain.User;
-import com.ProjectSC.user.domain.UserSimple;
+import com.ProjectSC.user.domain.UserInfo;
 
 @Mapper
 public interface UserMapper {
 
-	UserSimple selectUserSByLoginId(String loginId);
+	UserInfo selectUserSByLoginId(String loginId);
 
 	Integer insertUser(@Param("loginId")String loginId, @Param("email")String email,
 			@Param("password")String hashedPassword, @Param("name")String name,
@@ -17,5 +17,5 @@ public interface UserMapper {
 
 	User selectUserByLoginIdAndPassword(@Param("loginId")String loginId, @Param("password")String hashedPassword);
 
-	UserSimple selectUserSById(int userId);
+	UserInfo selectUserSById(int userId);
 }

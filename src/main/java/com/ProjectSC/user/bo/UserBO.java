@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ProjectSC.user.domain.User;
-import com.ProjectSC.user.domain.UserSimple;
+import com.ProjectSC.user.domain.UserInfo;
 import com.ProjectSC.user.mapper.UserMapper;
 
 @Service
@@ -13,7 +13,7 @@ public class UserBO {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public UserSimple GetUserSByLoginId(String loginId) {
+	public UserInfo GetUserSByLoginId(String loginId) {
 		return userMapper.selectUserSByLoginId(loginId);
 	}
 
@@ -26,7 +26,7 @@ public class UserBO {
 		return userMapper.selectUserByLoginIdAndPassword(loginId, hashedPassword);
 	}
 
-	public UserSimple getUserSById(int userId) {
+	public UserInfo getUserSById(int userId) {
 		return userMapper.selectUserSById(userId);
 	}
 }

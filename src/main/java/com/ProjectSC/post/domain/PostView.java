@@ -1,6 +1,6 @@
 package com.ProjectSC.post.domain;
 
-import com.ProjectSC.user.domain.UserSimple;
+import com.ProjectSC.user.domain.UserInfo;
 
 import lombok.Data;
 import lombok.ToString;
@@ -9,5 +9,5 @@ import lombok.ToString;
 @Data
 public class PostView {
 	private Post post;
-	private UserSimple user;
+	private UserInfo user;
 }

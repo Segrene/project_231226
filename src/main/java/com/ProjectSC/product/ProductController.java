@@ -19,15 +19,22 @@ public class ProductController {
 	@Autowired
 	private ProductBO productBO;
 	
-	@GetMapping("/category/{category}")
-	public String productList(@PathVariable Integer category, @RequestParam(value="sub", required=false)Integer subCategory,
+	@GetMapping({"/category", "/category/{category}"})
+	public String productList(@PathVariable(value="category", required = false)Integer category, 
+			@RequestParam(value="sub", required = false)Integer sub,
 			Model model) {
 		if (category == null) {
 			category = 0;
 		}
 		model.addAttribute("viewName", "product/productList");
-		List<ProductInfo> productList = productBO.getProductListByCategory(category, subCategory);
+		List<ProductInfo> productList = productBO.getProductListByCategory(category, sub);
 		model.addAttribute("productList", productList);
+		return "template/layout";
+	}
+	
+	@GetMapping("/productRegister")
+	public String productRegister(Model model) {
+		model.addAttribute("viewName", "product/productRegister");
 		return "template/layout";
 	}
 }

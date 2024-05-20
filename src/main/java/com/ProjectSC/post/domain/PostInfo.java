@@ -2,7 +2,7 @@ package com.ProjectSC.post.domain;
 
 import java.util.Date;
 
-import com.ProjectSC.user.domain.UserSimple;
+import com.ProjectSC.user.domain.UserInfo;
 
 import lombok.Data;
 import lombok.ToString;
@@ -18,5 +18,5 @@ public class PostInfo {
 	private Integer related;
 	private Date createdAt;
 	private Date updatedAt;
-	private UserSimple user;
+	private UserInfo user;
 }

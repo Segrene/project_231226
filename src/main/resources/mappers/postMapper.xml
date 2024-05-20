@@ -13,5 +13,9 @@
  			, `related`
  			, `createdAt`
  			, `updatedAt`
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`category` = #{category}
  	</select>
  </mapper>

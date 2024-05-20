@@ -18,8 +18,8 @@ public class PostController {
 	@Autowired
 	private PostBO postBO;
 	
-	@GetMapping("/board/{category}")
-	public String postListView(@PathVariable Integer category, Model model) {
+	@GetMapping({"/board", "/board/{category}"})
+	public String postListView(@PathVariable(required = false) Integer category, Model model) {
 		if (category == null) {
 			category = 0;
 		}

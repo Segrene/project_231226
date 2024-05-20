@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.ProjectSC.user.mapper.UserMapper">
- 	<select id="selectUserSByLoginId" parameterType="String" resultType="com.ProjectSC.user.domain.UserSimple">
+ 	<select id="selectUserSByLoginId" parameterType="String" resultType="com.ProjectSC.user.domain.UserInfo">
  		SELECT
  			`id`
  			, `loginId`
@@ -58,7 +58,7 @@
   				, NOW()
   			)
  	</insert>
- 	<select id="selectUserSById" parameterType="int" resultType="com.ProjectSC.user.domain.UserSimple">
+ 	<select id="selectUserSById" parameterType="int" resultType="com.ProjectSC.user.domain.UserInfo">
  		SELECT
  			`id`
  			, `loginId`
