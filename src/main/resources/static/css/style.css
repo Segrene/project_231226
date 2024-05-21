@@ -19,6 +19,9 @@ header {width:1300px;}
 
 .login-form {width:600px; height:100vh;}
 
+.editor {min-height:300px;}
+.editor img {max-width:100%;}
+
 #PListCategory {font-size:28px;}
 #PListSubCategory {font-size:20px;}
 
@@ -32,6 +35,8 @@ header {width:1300px;}
 
 #PRImage {width:600px; height:700px;}
 #PROption {width:600px; height:700px;}
+
+.PROptionInput {width:90%;}
 
 
 

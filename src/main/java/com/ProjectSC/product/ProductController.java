@@ -32,8 +32,8 @@ public class ProductController {
 		return "template/layout";
 	}
 	
-	@GetMapping("/productRegister")
-	public String productRegister(Model model) {
+	@GetMapping("/productRegister-view")
+	public String productRegisterView(Model model) {
 		model.addAttribute("viewName", "product/productRegister");
 		return "template/layout";
 	}
