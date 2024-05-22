@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ProjectSC.product.bo.ProductBO;
+import com.ProjectSC.product.domain.ProductDetail;
 import com.ProjectSC.product.domain.ProductInfo;
 
 @RequestMapping("/product")
@@ -29,6 +30,14 @@ public class ProductController {
 		model.addAttribute("viewName", "product/productList");
 		List<ProductInfo> productList = productBO.getProductListByCategory(category, sub);
 		model.addAttribute("productList", productList);
+		return "template/layout";
+	}
+	
+	@GetMapping("/productId/{id}")
+	public String productDetailView(@PathVariable("id")int id, Model model) {
+		model.addAttribute("viewName", "product/productDetail");
+		ProductDetail product = productBO.getProductDetailById(id);
+		model.addAttribute("product", product);
 		return "template/layout";
 	}
 	

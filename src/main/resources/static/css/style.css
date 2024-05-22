@@ -31,6 +31,7 @@ header {width:1300px;}
 .PThumbnail {width:240px; height:240px;}
 .PName {font-size:20px;}
 .PPrice {font-size:16px;}
+.PPriceDiscount {font-size:20px;}
 .PDiscount {font-size:24px;}
 
 #PRImage {width:600px; height:700px;}

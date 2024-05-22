@@ -30,7 +30,7 @@
 			<hr>
 			<select class="custom-select m-3 PROptionInput" id="PRDeliveryOption">
 	    		<option selected value="당일 배송">당일 배송</option>
-	    		<option value="즉시 배송">미사일 배송</option>
+	    		<option value="즉시 배송">즉시 배송</option>
 	    		<option value="일반 배송">일반 배송</option>
 	    		<option value="자체 배송">자체 배송</option>
 	  		</select>
@@ -215,7 +215,10 @@
 			let discount = $("#discount").val();
 			let category = $("#PRCategory").val();
 			let subCategory = $("#PRSubCategory").val();
-			let content = $("#content").val();
+			let delivery = $("#PRDeliveryOption").val();
+			// let content = document.querySelector("#editor");
+			// console.log(content);
+			let content = null;
 			let fileName = $("#thumbnail-selector").val();
 			console.log(fileName);
 			if (fileName) {
@@ -235,12 +238,13 @@
 			formData.append("discount", discount);
 			formData.append("category", category);
 			formData.append("subCategory", subCategory);
-			formData.append("content", content);
+			formData.append("delivery", delivery);
 			formData.append("file",
 					$("#thumbnail-selector")[0].files[0]);
+			// formData.append("content", content); // 분리 예정
 			$.ajax({
 				type : "POST",
-				url : "/post/postCreate",
+				url : "/product/register",
 				data : formData,
 				enctype : "multipart/form-data" // 파일업로드를 위한 필수 설정
 				,
@@ -251,7 +255,7 @@
 				success : function(data) {
 					if (data.code == 200) {
 						alert("저장되었습니다");
-						location.reload(true);
+						location.href = "/product/category";
 					} else {
 						alert(data.error_message);
 					}

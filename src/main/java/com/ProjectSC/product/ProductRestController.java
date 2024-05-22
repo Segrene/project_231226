@@ -28,8 +28,9 @@ public class ProductRestController {
 			@RequestParam("discount")int discount,
 			@RequestParam("category")int category,
 			@RequestParam("subCategory")int subCategory,
+			@RequestParam("delivery")String delivery,
 			@RequestParam("file") MultipartFile file,
-			@RequestParam(value = "content", required = false)String content,
+			@RequestParam(value = "content", required = false)String content, //분리 예정
 			HttpSession session) {
 		Map<String, Object> result = new HashMap<>();
 		Integer sellerId = (Integer)session.getAttribute("userId");
@@ -39,7 +40,14 @@ public class ProductRestController {
 			return result;
 		}
 		String sellerName = (String)session.getAttribute("userLoginId");
-		int rowCount = productBO.addProduct(name, sellerId, sellerName, price, discount, category, subCategory, file, content);
+		int rowCount = productBO.addProduct(name, sellerId, sellerName, price, discount, category, subCategory, delivery, file, content);
+		if (rowCount == 0) {
+			result.put("code", 500);
+			result.put("error_message", "DB 오류");
+			return result;
+		}
+		result.put("code", 200);
+		result.put("result", "성공");
 		return result;
 	}
 }

@@ -51,4 +51,54 @@
  			AND
  			`subCategory` = #{subCategory}
  	</select>
+ 	<select id="selectProductById" parameterType="int" resultType="com.ProjectSC.product.domain.Product">
+ 		SELECT
+ 			`id`
+ 			, `sellerId`
+ 			, `category`
+ 			, `subCategory`
+ 			, `name`
+ 			, `price`
+ 			, `discount`
+ 			, `deliveryType`
+ 			, `imagePath`
+ 			, `content`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`product`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
+ 	<insert id="insertProduct" parameterType="com.ProjectSC.product.domain.Product">
+ 		INSERT INTO
+ 			`product`
+ 			(
+ 				`sellerId`
+ 				, `category`
+ 				, `subCategory`
+ 				, `name`
+ 				, `price`
+ 				, `discount`
+ 				, `deliveryType`
+ 				, `imagePath`
+ 				, `content`
+ 				, `createdAt`
+ 				, `updatedAt`
+ 			)
+ 			VALUES
+ 			(
+ 				#{sellerId}
+ 				, #{category}
+ 				, #{subCategory}
+ 				, #{name}
+ 				, #{price}
+ 				, #{discount}
+ 				, #{deliveryType}
+ 				, #{imagePath}
+ 				, #{content}
+ 				, NOW()
+ 				, NOW()
+ 			)
+ 	</insert>
  </mapper>
