@@ -30,7 +30,7 @@ public class ProductBO {
 	}
 
 	public int addProduct(String name, Integer sellerId, String sellerName, int price, int discount, int category, int subCategory,
-			String delivery, MultipartFile file, String content) {
+			String delivery, MultipartFile file) {
 		String imagePath = null;
 		if (file != null) {
 			imagePath = FileManager.saveFile(sellerName, file);
@@ -38,7 +38,7 @@ public class ProductBO {
 		if (imagePath == null) {
 			return 0;
 		}
-		return productMapper.insertProduct(name, sellerId, price, discount, category, subCategory, delivery, imagePath, content);
+		return productMapper.insertProduct(name, sellerId, price, discount, category, subCategory, delivery, imagePath);
 	}
 
 	public ProductDetail getProductDetailById(int id) {
@@ -47,6 +47,10 @@ public class ProductBO {
 		// seller 값 가져오기
 		// postList 가져오기
 		return product;
+	}
+
+	public ProductInfo getProductInfo(int productId) {
+		return productMapper.selectProductInfoByProductId(productId);
 	}
 
 }

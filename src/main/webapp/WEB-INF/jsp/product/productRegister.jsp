@@ -16,7 +16,7 @@
 			<input type="text" class="form-control m-3 PROptionInput" id="discount" placeholder="할인율">
 			<hr>
 			<select class="custom-select m-3 PROptionInput" id="PRCategory">
-	    		<option selectedc>카테고리1</option>
+	    		<option selected value="0">카테고리1</option>
 	    		<option value="1">카테고리2</option>
 	    		<option value="2">카테고리3</option>
 	    		<option value="3">카테고리4</option>
@@ -242,6 +242,9 @@
 			formData.append("file",
 					$("#thumbnail-selector")[0].files[0]);
 			// formData.append("content", content); // 분리 예정
+			for (let value of formData.values()) {
+				console.log(value);
+			}
 			$.ajax({
 				type : "POST",
 				url : "/product/register",

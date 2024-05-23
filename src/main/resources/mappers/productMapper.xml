@@ -70,6 +70,24 @@
  		WHERE
  			`id` = #{id}
  	</select>
+ 	<select id="selectProductInfoByProductId" parameterType="int" resultType="com.ProjectSC.product.domain.ProductInfo">
+ 		SELECT
+ 			`id`
+ 			, `sellerId`
+ 			, `category`
+ 			, `subCategory`
+ 			, `name`
+ 			, `price`
+ 			, `discount`
+ 			, `deliveryType`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`product`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
  	<insert id="insertProduct" parameterType="com.ProjectSC.product.domain.Product">
  		INSERT INTO
  			`product`
@@ -82,7 +100,6 @@
  				, `discount`
  				, `deliveryType`
  				, `imagePath`
- 				, `content`
  				, `createdAt`
  				, `updatedAt`
  			)
@@ -96,7 +113,6 @@
  				, #{discount}
  				, #{deliveryType}
  				, #{imagePath}
- 				, #{content}
  				, NOW()
  				, NOW()
  			)

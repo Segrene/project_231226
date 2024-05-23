@@ -19,8 +19,10 @@ public interface ProductMapper {
 
 	int insertProduct(@Param("name")String name, @Param("sellerId")Integer sellerId, @Param("price")int price, 
 			@Param("discount")int discount, @Param("category")int category, @Param("subCategory")int subCategory,
-			@Param("deliveryType")String deliveryType, @Param("imagePath")String imagePath, @Param("content")String content);
+			@Param("deliveryType")String deliveryType, @Param("imagePath")String imagePath);
 
 	Product selectProductById(int id);
+
+	ProductInfo selectProductInfoByProductId(int productId);
 
 }

@@ -30,7 +30,6 @@ public class ProductRestController {
 			@RequestParam("subCategory")int subCategory,
 			@RequestParam("delivery")String delivery,
 			@RequestParam("file") MultipartFile file,
-			@RequestParam(value = "content", required = false)String content, //분리 예정
 			HttpSession session) {
 		Map<String, Object> result = new HashMap<>();
 		Integer sellerId = (Integer)session.getAttribute("userId");
@@ -40,7 +39,7 @@ public class ProductRestController {
 			return result;
 		}
 		String sellerName = (String)session.getAttribute("userLoginId");
-		int rowCount = productBO.addProduct(name, sellerId, sellerName, price, discount, category, subCategory, delivery, file, content);
+		int rowCount = productBO.addProduct(name, sellerId, sellerName, price, discount, category, subCategory, delivery, file);
 		if (rowCount == 0) {
 			result.put("code", 500);
 			result.put("error_message", "DB 오류");
@@ -48,6 +47,16 @@ public class ProductRestController {
 		}
 		result.put("code", 200);
 		result.put("result", "성공");
+		return result;
+	}
+	
+	@PostMapping("/register-content")
+	public Map<String, Object> productContentRegister(
+			@RequestParam(value = "content", required = false)String content,
+			HttpSession session) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 500);
+		result.put("error_message", "준비되지 않음");
 		return result;
 	}
 }
