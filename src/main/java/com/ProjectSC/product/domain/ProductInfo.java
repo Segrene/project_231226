@@ -13,6 +13,7 @@ public class ProductInfo {
 	private String name;
 	private int price;
 	private int discount;
+	private int finalPrice;
 	private String deliveryType;
 	private String imagePath;
 }

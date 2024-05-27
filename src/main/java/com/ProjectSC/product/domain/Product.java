@@ -15,6 +15,7 @@ public class Product {
 	private String name;
 	private int price;
 	private int discount;
+	private int finalPrice;
 	private String deliveryType;
 	private String imagePath;
 	private String content;

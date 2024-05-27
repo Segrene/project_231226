@@ -17,8 +17,8 @@ public interface ProductMapper {
 
 	List<ProductInfo> selectProductListByCategoryAndSubCategory(@Param("category")int category, @Param("subCategory")Integer subCategory);
 
-	int insertProduct(@Param("name")String name, @Param("sellerId")Integer sellerId, @Param("price")int price, 
-			@Param("discount")int discount, @Param("category")int category, @Param("subCategory")int subCategory,
+	int insertProduct(@Param("name")String name, @Param("sellerId")int sellerId, @Param("price")int price, 
+			@Param("discount")Integer discount, @Param("finalPrice")int finalPrice, @Param("category")int category, @Param("subCategory")int subCategory,
 			@Param("deliveryType")String deliveryType, @Param("imagePath")String imagePath);
 
 	Product selectProductById(int id);

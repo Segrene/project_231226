@@ -20,7 +20,7 @@
 					<fmt:formatNumber var="priceOrigin" value="${product.price}"
 					 type="currency" currencySymbol="￦" maxFractionDigits="0"/>
 					<div class="ml-3 PPrice"><del>${priceOrigin}</del></div>
-					<fmt:formatNumber var="priceResult" value="${product.price - (product.price * product.discount / 100)}"
+					<fmt:formatNumber var="priceResult" value="${product.finalPrice}"
 					 type="currency" currencySymbol="￦" maxFractionDigits="0"/>
 					<div class="ml-3 PPriceDiscount">${priceResult}</div>
 				</div>

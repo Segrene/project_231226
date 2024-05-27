@@ -14,6 +14,7 @@
 			<hr>
 			<input type="text" class="form-control m-3 PROptionInput" id="price" placeholder="상품가격">
 			<input type="text" class="form-control m-3 PROptionInput" id="discount" placeholder="할인율">
+			<input type="text" class="form-control m-3 PROptionInput" id="finalPrice" value="" placeholder="최종가격" readonly>
 			<hr>
 			<select class="custom-select m-3 PROptionInput" id="PRCategory">
 	    		<option selected value="0">카테고리1</option>
@@ -209,10 +210,19 @@
 	
 	
 	$(document).ready(function() {
+		$("#discount").on('change', function() {
+			let finalPrice = parseInt($("#price").val() - ($("#price").val() * $("#discount").val() / 100));
+			$('#finalPrice').val(finalPrice); 
+		});
+		$("#price").on('change', function() {
+			let finalPrice = parseInt($("#price").val() - ($("#price").val() * $("#discount").val() / 100));
+			$('#finalPrice').val(finalPrice); 
+		});
 		$("#register").on('click', function() {
 			let name = $("#name").val().trim();
 			let price = $("#price").val();
 			let discount = $("#discount").val();
+			let finalPrice = $("#finalPrice").val();
 			let category = $("#PRCategory").val();
 			let subCategory = $("#PRSubCategory").val();
 			let delivery = $("#PRDeliveryOption").val();
@@ -236,6 +246,7 @@
 			formData.append("name", name);
 			formData.append("price", price);
 			formData.append("discount", discount);
+			formData.append("finalPrice", finalPrice);
 			formData.append("category", category);
 			formData.append("subCategory", subCategory);
 			formData.append("delivery", delivery);

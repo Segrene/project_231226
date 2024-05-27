@@ -39,7 +39,8 @@ header {width:1300px;}
 
 .PROptionInput {width:90%;}
 
-
-
+.CartBox {width:400px; height:200px;}
+.CartThumbnail{width:200px; height:200px;}
+#cartTotal {font-size:32px;}
 
 .footer {width:1300px; height:100px;}

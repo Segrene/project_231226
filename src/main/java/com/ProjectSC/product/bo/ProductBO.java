@@ -29,8 +29,8 @@ public class ProductBO {
 		return productMapper.selectProductListByCategoryAndSubCategory(category, subCategory);
 	}
 
-	public int addProduct(String name, Integer sellerId, String sellerName, int price, int discount, int category, int subCategory,
-			String delivery, MultipartFile file) {
+	public int addProduct(String name, int sellerId, String sellerName, int price, Integer discount, int finalPrice,
+			int category, int subCategory, String delivery, MultipartFile file) {
 		String imagePath = null;
 		if (file != null) {
 			imagePath = FileManager.saveFile(sellerName, file);
@@ -38,7 +38,7 @@ public class ProductBO {
 		if (imagePath == null) {
 			return 0;
 		}
-		return productMapper.insertProduct(name, sellerId, price, discount, category, subCategory, delivery, imagePath);
+		return productMapper.insertProduct(name, sellerId, price, discount, finalPrice, category, subCategory, delivery, imagePath);
 	}
 
 	public ProductDetail getProductDetailById(int id) {

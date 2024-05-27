@@ -27,8 +27,7 @@ public class CartController {
 			return "user/login";
 		}
 		List<CartView> cartList = cartBO.getCartList(userId);
-		model.addAttribute("viewName", "cart/cart");
 		model.addAttribute("cart", cartList);
-		return "template/layout";
+		return "cart/cart";
 	}
 }

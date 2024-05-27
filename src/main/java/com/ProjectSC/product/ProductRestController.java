@@ -25,7 +25,8 @@ public class ProductRestController {
 	public Map<String, Object> productRegister(
 			@RequestParam("name")String name,
 			@RequestParam("price")int price,
-			@RequestParam("discount")int discount,
+			@RequestParam(value = "discount", required = false)Integer discount,
+			@RequestParam("finalPrice")int finalPrice,
 			@RequestParam("category")int category,
 			@RequestParam("subCategory")int subCategory,
 			@RequestParam("delivery")String delivery,
@@ -39,7 +40,7 @@ public class ProductRestController {
 			return result;
 		}
 		String sellerName = (String)session.getAttribute("userLoginId");
-		int rowCount = productBO.addProduct(name, sellerId, sellerName, price, discount, category, subCategory, delivery, file);
+		int rowCount = productBO.addProduct(name, sellerId, sellerName, price, discount, finalPrice, category, subCategory, delivery, file);
 		if (rowCount == 0) {
 			result.put("code", 500);
 			result.put("error_message", "DB 오류");
