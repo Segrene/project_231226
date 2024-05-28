@@ -16,4 +16,6 @@ public class ProductInfo {
 	private int finalPrice;
 	private String deliveryType;
 	private String imagePath;
+	private String categoryName;
+	private String subCategoryName;
 }

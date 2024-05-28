@@ -21,4 +21,6 @@ public class Product {
 	private String content;
 	private Date createdAt;
 	private Date updatedAt;
+	private String categoryName;
+	private String subCategoryName;
 }

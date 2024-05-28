@@ -16,4 +16,6 @@ public interface CartMapper {
 	Cart selectCartProduct(@Param("userId")int userId, @Param("productId")int productId);
 
 	int updateProduct(Cart cart);
+
+	int deleteProduct(@Param("userId")int userId, @Param("productId")int productId);
 }

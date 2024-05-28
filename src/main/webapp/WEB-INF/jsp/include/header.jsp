@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="d-flex">
-	<div class="logo bg-danger"></div>
+	<div class="logo bg-danger" onclick="location.href='/main/main';" style="cursor: pointer;"></div>
 	<div>
 		<div class="d-flex align-items-center bg-light" id="upperHeader">
 			<div class="input-group m-1 col-4">
@@ -24,7 +24,7 @@
 				<c:if test="${!empty userId}">
 					<img src="/static/img/ui/user_default.png" class="img-thumbnail" width="50px" height="50px">
 					<span id="userName">${userLoginId}</span>
-					<button type="button" class="btn btn-primary p-1 m-2" id="mypage">마이페이지</button>
+					<button type="button" class="btn btn-primary p-1 m-2" id="cart"	onclick="location.href='/cart/cart-view';">장바구니</button>
 					<a href="/user/logout">로그아웃</a>
 				</c:if>
 				<c:if test="${empty userId}">
@@ -34,15 +34,18 @@
 		</div>
 		<div class="d-flex align-items-center" id="lowerHeader">
 			<ul class="nav nav-pills nav-fill">
-				<li class="nav-item"><a class="nav-link" href="#">카테고리1</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">카테고리2</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">카테고리3</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">카테고리4</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">카테고리5</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">카테고리6</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">카테고리7</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">카테고리8</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">카테고리9</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/0">전체</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/1">가전</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/2">가구</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/3">생활용품</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/4">식품</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/5">취미</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/6">차량</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/7">전자</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/8">도서/음반</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/9">주방용품</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/10">반려동물</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product/category/11">여행/티켓/호텔</a></li>
 			</ul>
 		</div>
 	</div>

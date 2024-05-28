@@ -28,8 +28,8 @@
 			<div class="ml-2 PDiscount">-${DCPercent}</div>
 			</div>
 			<hr>
-			<div class="m-3">${product.product.category}</div>
-	  		<div class="m-3">${product.product.subCategory}</div>
+			<div class="m-3">${product.product.categoryName}</div>
+	  		<div class="m-3">${product.product.subCategoryName}</div>
 			<hr>
 			<div class="m-3">${product.product.deliveryType}</div>
 			<hr>

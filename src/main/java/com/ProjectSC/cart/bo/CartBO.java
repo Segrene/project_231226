@@ -43,4 +43,8 @@ public class CartBO {
 		return cartViewList;
 	}
 
+	public int deleteProduct(int userId, int productId) {
+		return cartMapper.deleteProduct(userId, productId);
+	}
+
 }

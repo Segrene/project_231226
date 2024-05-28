@@ -11,6 +11,7 @@ public class MainController {
 	@GetMapping("/main")
 	public String main(Model model) {
 		model.addAttribute("viewName", "main/main");
+		model.addAttribute("productCategory", "null");
 		return "template/layout";
 	}
 }

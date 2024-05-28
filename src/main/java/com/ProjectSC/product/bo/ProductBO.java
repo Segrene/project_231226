@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ProjectSC.category.mapper.CategoryMapper;
 import com.ProjectSC.common.FileManagerService;
 import com.ProjectSC.product.domain.ProductDetail;
 import com.ProjectSC.product.domain.ProductInfo;
@@ -16,6 +17,8 @@ public class ProductBO {
 	
 	@Autowired
 	private ProductMapper productMapper;
+	@Autowired
+	private CategoryMapper categoryMapper;
 	@Autowired
 	private FileManagerService FileManager;
 
@@ -44,13 +47,22 @@ public class ProductBO {
 	public ProductDetail getProductDetailById(int id) {
 		ProductDetail product = new ProductDetail();
 		product.setProduct(productMapper.selectProductById(id));
+		product.getProduct().setCategoryName(categoryMapper.selectCategory(product.getProduct().getCategory()).getName());
+		if (product.getProduct().getSubCategory() != null) {
+			product.getProduct().setSubCategoryName(categoryMapper.selectSubCategory(product.getProduct().getCategory(), product.getProduct().getSubCategory()).getName());
+		}
 		// seller 값 가져오기
 		// postList 가져오기
 		return product;
 	}
 
 	public ProductInfo getProductInfo(int productId) {
-		return productMapper.selectProductInfoByProductId(productId);
+		ProductInfo product = productMapper.selectProductInfoByProductId(productId);
+		product.setCategoryName(categoryMapper.selectCategory(product.getCategory()).getName());
+		if (product.getSubCategory() != null) {
+			product.setSubCategoryName(categoryMapper.selectSubCategory(product.getCategory(), product.getSubCategory()).getName());
+		}
+		return product;
 	}
 
 }

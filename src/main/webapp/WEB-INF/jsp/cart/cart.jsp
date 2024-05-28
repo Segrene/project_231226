@@ -16,7 +16,8 @@
 <body>
 	<div class="container d-flex justify-content-center p-0">
 		<div id="wrap">
-			<div>
+			<div class="d-flex align-items-center">
+				<div class="logo bg-danger" onclick="location.href='/main/main';" style="cursor: pointer;"></div>
 				<h1>장바구니</h1>
 			</div>
 			<div class="cart-form bg-light d-flex justify-content-center">
@@ -88,7 +89,24 @@ $(document).ready(function() {
 	console.log(deliveryFee);
 	$('.cartDeliveryFee').text(deliveryFee);
 	$('.deleteBtn').on('click', function(e) {
-		alert("삭제");
+		let productId = $(this).data('product');
+		$.ajax({
+			type : "DELETE",
+			url : "/cart/delete",
+			data : {
+				"productId" : productId
+			},
+			success : function(data) {
+				if (data.code == 200) {
+					location.reload(true);
+				} else {
+					alert(data.error_message);
+				}
+			},
+			error : function(e) {
+				alert("삭제 실패");
+			}
+		});
 	});
 	$('.buyBtn').on('click', function(e) {
 		alert("구매");

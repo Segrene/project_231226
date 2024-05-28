@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ProjectSC.category.mapper.CategoryMapper">
+ 	<select id="selectCategoryList" parameterType="int" resultType="com.ProjectSC.category.domain.Category">
+ 		SELECT
+ 			`type`
+ 			, `id`
+ 			, `name`
+ 		FROM
+ 			`category`
+ 		WHERE
+ 			`type` = #{type}
+ 	</select>
+ 	<select id="selectCategory" parameterType="int" resultType="com.ProjectSC.category.domain.Category">
+ 		SELECT
+ 			`type`
+ 			, `id`
+ 			, `name`
+ 		FROM
+ 			`category`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
+ 	<select id="selectSubCategoryList" parameterType="int" resultType="com.ProjectSC.category.domain.SubCategory">
+ 		SELECT
+ 			`category`
+ 			, `id`
+ 			, `name`
+ 		FROM
+ 			`subCategory`
+ 		WHERE
+ 			`category` = #{category}
+ 	</select>
+ 	<select id="selectSubCategory" parameterType="Map" resultType="com.ProjectSC.category.domain.SubCategory">
+ 		SELECT
+ 			`category`
+ 			, `id`
+ 			, `name`
+ 		FROM
+ 			`subCategory`
+ 		WHERE
+ 			`category` = #{category}
+ 			AND
+ 			`id` = #{id}
+ 	</select>
+ </mapper>

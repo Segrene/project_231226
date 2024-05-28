@@ -62,4 +62,13 @@
  			AND
  			`productId` = #{productId}
  	</update>
+ 	<delete id="deleteProduct" parameterType="Map">
+ 		DELETE
+ 		FROM
+ 			`cart`
+ 		WHERE
+ 			`userId` = #{userId}
+ 			AND
+ 			`productId` = #{productId}
+ 	</delete>
  </mapper>
