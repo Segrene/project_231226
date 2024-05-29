@@ -18,17 +18,14 @@
 			<input type="text" class="form-control m-3 PROptionInput" id="finalPrice" value="" placeholder="최종가격" readonly>
 			<hr>
 			<select class="custom-select m-3 PROptionInput" id="PRCategory">
-	    		<option selected value="0">카테고리1</option>
-	    		<option value="1">카테고리2</option>
-	    		<option value="2">카테고리3</option>
-	    		<option value="3">카테고리4</option>
+	    		<option selected value="-1">카테고리를 선택하세요</option>
+				<c:forEach items="${categoryList}" var="category" varStatus="status">
+					<option value="${category.id}">${category.name}</option>
+				</c:forEach>
 	  		</select>
-	  		<select class="custom-select m-3 PROptionInput" id="PRSubCategory">
-	    		<option selected value="0">세부 카테고리1</option>
-	    		<option value="1">세부 카테고리2</option>
-	    		<option value="2">세부 카테고리3</option>
-	    		<option value="3">세부 카테고리4</option>
-	  		</select>
+	  		<div id="reload">
+	  		<jsp:include page="../product/productSubCategoryList.jsp" />
+	  		</div>
 			<hr>
 			<select class="custom-select m-3 PROptionInput" id="PRDeliveryOption">
 	    		<option selected value="당일 배송">당일 배송</option>
@@ -215,10 +212,30 @@
 			let finalPrice = parseInt($("#price").val() - ($("#price").val() * $("#discount").val() / 100));
 			$('#finalPrice').val(finalPrice); 
 		});
+		
 		$("#price").on('change', function() {
 			let finalPrice = parseInt($("#price").val() - ($("#price").val() * $("#discount").val() / 100));
 			$('#finalPrice').val(finalPrice); 
 		});
+		
+		$("#PRCategory").on('change', function() {
+			let category = $("#PRCategory").val();
+			if (category < 0) {
+				return false;
+			}
+			$.ajax({
+				type : "GET",
+				url : "/category/getSubCategoryList",
+				data : {"category":category},
+				success : function(data) {
+					$('#reload').html(data);
+				},
+				error : function(e) {
+					alert("subCategory로드중 문제가 발생했습니다");
+				}
+			});
+		});
+		
 		$("#register").on('click', function() {
 			let name = $("#name").val().trim();
 			let price = $("#price").val();
@@ -232,6 +249,27 @@
 			let content = null;
 			let fileName = $("#thumbnail-selector").val();
 			console.log(fileName);
+			
+			if (!name) {
+				alert("상품 이름을 입력하세요");
+				return false;
+			}
+			
+			if (!price) {
+				alert("상품 가격을 입력하세요");
+				return false;
+			}
+			
+			if (category < 0) {
+				alert("카테고리를 선택하세요");
+				return false;
+			}
+			
+			if (!fileName) {
+				alert("상품의 사진을 등록해야 합니다");
+				return false;
+			}
+			
 			if (fileName) {
 				let extension = fileName.split(".")
 						.pop().toLowerCase();
@@ -240,9 +278,10 @@
 						'bmp', 'webp' ]) == -1) {
 					alert("지원되는 이미지 파일만 업로드 가능합니다");
 					$('#thumbnail-selector').val("");
-					return;
+					return false;
 				}
 			}
+			
 			let formData = new FormData();
 			formData.append("name", name);
 			formData.append("price", price);

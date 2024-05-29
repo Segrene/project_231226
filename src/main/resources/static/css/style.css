@@ -26,7 +26,8 @@ header {width:1300px;}
 #PListSubCategory {font-size:20px;}
 
 #productList {width:1200px; min-height:800px;}
-#productCategory {width:1200px; height:100px;}
+#productCategory {width:1200px; height:50px;}
+#productSubCategory {width:1200px; height:50px;}
 .PBox {width:240px; height:400px;}
 .PThumbnail {width:240px; height:240px;}
 .PName {font-size:20px;}

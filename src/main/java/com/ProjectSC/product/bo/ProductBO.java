@@ -26,7 +26,7 @@ public class ProductBO {
 		if (category == 0) {
 			return productMapper.selectAllProductList();
 		}
-		if (subCategory == null) {
+		if (subCategory == null || subCategory == 0) {
 			return productMapper.selectProductListByCategory(category);
 		}
 		return productMapper.selectProductListByCategoryAndSubCategory(category, subCategory);
