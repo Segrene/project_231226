@@ -109,7 +109,7 @@ $(document).ready(function() {
 		});
 	});
 	$('.buyBtn').on('click', function(e) {
-		alert("구매");
+		location.href = "/order/order-view";
 	});
 });
 </script>
