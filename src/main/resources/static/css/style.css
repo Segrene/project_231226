@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 
+.text16 {font-size:16px;}
+.text20 {font-size:20px;}
+.text24 {font-size:24px;}
 
 header {width:1300px;}
 .logo {width:100px; height:100px}
@@ -43,5 +46,8 @@ header {width:1300px;}
 .CartBox {width:400px; height:200px;}
 .CartThumbnail{width:200px; height:200px;}
 #cartTotal {font-size:32px;}
+
+#orderItems {width:500px;}
+#orderOptions {width:700px;}
 
 .footer {width:1300px; height:100px;}

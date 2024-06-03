@@ -14,7 +14,7 @@ public class Order {
 	private String contact;
 	private String address;
 	private String status;
-	private String paymentMethod;
+	private int paymentMethod;
 	private int amount;
 	private int deliveryFee;
 	private int totalAmount;

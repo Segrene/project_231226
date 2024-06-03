@@ -33,7 +33,7 @@ public class OrderRestController {
 //		return result;
 //	}
 	
-	@GetMapping("/order")
+	@GetMapping("/cartOrder")
 	public Map<String, Object> cartOrder(HttpSession session, Model model) {
 		Map<String, Object> result = new HashMap<>();
 		return result;

@@ -1,53 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 <title>ProjectSC</title>
 </head>
 <body>
 	<div class="container d-flex justify-content-center p-0">
-		<div id="wrap">
+		<div id="wrap" class="w-100">
 			<div class="d-flex align-items-center">
-				<div class="logo bg-danger" onclick="location.href='/main/main';" style="cursor: pointer;"></div>
+				<div class="logo bg-danger" onclick="location.href='/main/main';"
+					style="cursor: pointer;"></div>
 				<h1>결제</h1>
 			</div>
-			<div class="cart-form bg-light d-flex justify-content-center">
-				<div class="border" id="cartItems">
-				<div class="border font-weight-light p-5" id="cartTotal">
-					<div class="d-flex aling-items-center">
-						<div>전체 가격 : ${order.amount}</div>
-						<div class="cartProductPrice ml-1"></div>
+			<div class="cart-form bg-light d-flex justify-content-center w-100">
+				<div class="border" id="orderItems">
+					<div class="border font-weight-light p-5" id="cartTotal">
+						<div class="d-flex aling-items-center">
+							<div>전체 가격 : ${order.amount}</div>
+							<div class="cartProductPrice ml-1"></div>
+						</div>
+						<div class="d-flex aling-items-center">
+							<div>전체 배송료 : ${order.deliveryFee}</div>
+							<div class="cartDeliveryFee ml-1"></div>
+						</div>
+						<div class="d-flex aling-items-center">
+							<div>최종 가격 : ${order.totalAmount}</div>
+							<div class="cartDeliveryFee ml-1"></div>
+						</div>
 					</div>
-					<div class="d-flex aling-items-center">
-						<div>전체 배송료 : ${order.deliveryFee}</div>
-						<div class="cartDeliveryFee ml-1"></div>
-					</div>
-					<div class="d-flex aling-items-center">
-						<div>최종 가격 : ${order.totalAmount}</div>
-						<div class="cartDeliveryFee ml-1"></div>
-					</div>
-					<div>
-						<button type="button" class="btn btn-primary buyBtn">구매하기</button>
+				</div>
+				<div class="border" id="orderOptions">
+					<div class="border font-weight-light p-5" id="orderOption">
+						<div class="font-weight-light text20">주소</div>
+						<div class="py-2">
+							<div class="input-group d-flex align-items-center py-1">
+								<input type="text" class="form-control" id="zonecode" placeholder="우편번호">
+								<button type="button" class="btn btn-primary addressBtn ml-5">주소 찾기</button>
+							</div>
+							<input type="text" class="form-control py-1" id="address" placeholder="주소">
+							<input type="text" class="form-control py-1" id="addressDetail" placeholder="상세주소">
+						</div>
+						<div class="font-weight-light text20">결제방법</div>
+						<div class="input-group mb-3 py-2">
+							<div class="input-group-prepend">
+								<label class="input-group-text" for="inputGroupSelect01">결제방식</label>
+							</div>
+							<select class="custom-select" id="payment">
+								<option selected value="0">아임포트</option>
+							</select>
+						</div>
+						<div>
+							<button type="button" class="btn btn-primary buyBtn">구매하기</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-$(document).ready(function() {
-	$('.buyBtn').on('click', function(e) {
-		return false;
+	$(document).ready(function() {
+		$('.addressBtn').on('click', function(e) {
+			new daum.Postcode({
+		        oncomplete: function(data) {
+		        	$('#zonecode').val(data.zonecode);
+		        	$('#address').val(data.address);
+		        }
+		    }).open();
+		});
+		$('.buyBtn').on('click', function(e) {
+			let zonecode = $("#zonecode").val();
+			let address = $("#address").val();
+			let addressDetail = $("#addressDetail").val();
+			let mergedAddress = "(" + zonecode + ")" + address + " " + addressDetail;
+			console.log(mergedAddress);
+			let paymentMethod = $("#payment").val();
+			console.log(paymentMethod);
+			return false;
+
+		});
 	});
-});
 </script>
 </html>
