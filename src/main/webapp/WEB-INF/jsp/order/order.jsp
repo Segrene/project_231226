@@ -63,7 +63,8 @@
 								<label class="input-group-text" for="inputGroupSelect01">결제방식</label>
 							</div>
 							<select class="custom-select" id="payment">
-								<option selected value="0">아임포트</option>
+								<option selected value="0">나이스페이먼츠</option>
+								<option value="1">카카오페이 직연동</option>
 							</select>
 						</div>
 						<div>
@@ -76,27 +77,113 @@
 	</div>
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 <script>
-	$(document).ready(function() {
-		$('.addressBtn').on('click', function(e) {
-			new daum.Postcode({
-		        oncomplete: function(data) {
-		        	$('#zonecode').val(data.zonecode);
-		        	$('#address').val(data.address);
-		        }
-		    }).open();
-		});
-		$('.buyBtn').on('click', function(e) {
-			let zonecode = $("#zonecode").val();
-			let address = $("#address").val();
-			let addressDetail = $("#addressDetail").val();
-			let mergedAddress = "(" + zonecode + ")" + address + " " + addressDetail;
-			console.log(mergedAddress);
-			let paymentMethod = $("#payment").val();
-			console.log(paymentMethod);
-			return false;
 
+	async function kakaoPay() {
+		const response = await PortOne.requestPayment({
+			// Store ID 설정
+			storeId : "store-faae0eac-818e-408f-adc1-0a523d4413e7",
+			// 채널 키 설정
+			channelKey : "channel-key-b15a1ef6-1d44-470d-8a32-00f32fbb52a3",
+			paymentId : `payment-${crypto.randomUUID()}`,
+			// 추후 구현 예정
+			orderName : "API 테스트 결제",
+			totalAmount : 100,
+			currency : "CURRENCY_KRW",
+			payMethod : "EASY_PAY",
+			easyPay : {
+				easyPayProvider : "KAKAOPAY",
+			},
+			isTestChannel : true,
 		});
-	});
+
+		if (response.code != null) {
+			// 오류 발생
+			return alert(response.message);
+		}
+
+		// 고객사 서버에서 /payment/complete 엔드포인트를 구현해야 합니다.
+		// (다음 목차에서 설명합니다)
+		const notified = await
+		fetch(`/payment/complete`, {
+			method : "POST",
+			headers : {
+				"Content-Type" : "application/json"
+			},
+			// paymentId와 주문 정보를 서버에 전달합니다
+			body : JSON.stringify({
+				paymentId : paymentId,
+			// 주문 정보...
+			}),
+		});
+	}
+	
+	async function nicePayments() {
+		const response = await PortOne.requestPayment({
+			// Store ID 설정
+			storeId : "store-faae0eac-818e-408f-adc1-0a523d4413e7",
+			// 채널 키 설정
+			channelKey : "channel-key-70380733-aad8-4fa4-8ca5-02f8258bff39",
+			paymentId : `payment-${crypto.randomUUID()}`,
+			// 추후 구현 예정
+			orderName : "API 테스트 결제",
+			totalAmount : 100,
+			currency : "KRW",
+			payMethod: "CARD",
+		    card: {},
+		    isTestChannel : true,
+		});
+
+		if (response.code != null) {
+			// 오류 발생
+			return alert(response.message);
+		}
+
+		// 고객사 서버에서 /payment/complete 엔드포인트를 구현해야 합니다.
+		// (다음 목차에서 설명합니다)
+		const notified = await
+		fetch(`/payment/complete`, {
+			method : "POST",
+			headers : {
+				"Content-Type" : "application/json"
+			},
+			// paymentId와 주문 정보를 서버에 전달합니다
+			body : JSON.stringify({
+				paymentId : paymentId,
+			// 주문 정보...
+			}),
+		});
+	}
+
+	$(document).ready(
+			function() {
+				$('.addressBtn').on('click', function(e) {
+					new daum.Postcode({
+						oncomplete : function(data) {
+							$('#zonecode').val(data.zonecode);
+							$('#address').val(data.address);
+						}
+					}).open();
+				});
+				$('.buyBtn').on(
+						'click',
+						function() {
+							let zonecode = $("#zonecode").val();
+							let address = $("#address").val();
+							let addressDetail = $("#addressDetail").val();
+							let mergedAddress = "(" + zonecode + ")" + address
+									+ " " + addressDetail;
+							console.log(mergedAddress);
+							let paymentMethod = $("#payment").val();
+							console.log(paymentMethod);
+							if (paymentMethod == 0) {
+								nicePayments();
+							}
+							if (paymentMethod == 1) {
+								kakaoPay();
+							}
+						});
+			});
 </script>
 </html>
