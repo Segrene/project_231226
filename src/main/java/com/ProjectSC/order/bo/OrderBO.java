@@ -36,4 +36,8 @@ public class OrderBO {
 		order.setTotalAmount(totalAmount + deliveryFee);
 		return order;
 	}
+	
+	public Order orderCompletion(Order order) {
+		return order;
+	}
 }

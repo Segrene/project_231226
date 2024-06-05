@@ -120,12 +120,14 @@
 	}
 	
 	async function nicePayments() {
+		let paymentId = crypto.randomUUID();
+		console.log(paymentId);
 		const response = await PortOne.requestPayment({
 			// Store ID 설정
 			storeId : "store-faae0eac-818e-408f-adc1-0a523d4413e7",
 			// 채널 키 설정
 			channelKey : "channel-key-70380733-aad8-4fa4-8ca5-02f8258bff39",
-			paymentId : `payment-${crypto.randomUUID()}`,
+			paymentId : "payment-" + paymentId,
 			// 추후 구현 예정
 			orderName : "API 테스트 결제",
 			totalAmount : 100,
@@ -150,7 +152,7 @@
 			},
 			// paymentId와 주문 정보를 서버에 전달합니다
 			body : JSON.stringify({
-				paymentId : paymentId,
+				paymentId: paymentId
 			// 주문 정보...
 			}),
 		});
