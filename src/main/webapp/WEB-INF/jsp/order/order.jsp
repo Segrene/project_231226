@@ -29,6 +29,7 @@
 					style="cursor: pointer;"></div>
 				<h1>결제</h1>
 			</div>
+			<div class="d-none" id="orderId">${order.id}</div>
 			<div class="cart-form bg-light d-flex justify-content-center w-100">
 				<div class="border" id="orderItems">
 					<div class="border font-weight-light p-5" id="cartTotal">
@@ -41,7 +42,7 @@
 							<div class="cartDeliveryFee ml-1"></div>
 						</div>
 						<div class="d-flex aling-items-center">
-							<div>최종 가격 : ${order.totalAmount}</div>
+							<div>최종 가격 : <div id=amount>${order.totalAmount}</div></div>
 							<div class="cartDeliveryFee ml-1"></div>
 						</div>
 					</div>
@@ -79,6 +80,13 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 <script>
+	
+	let orderId = parseInt($('#orderId').text().trim());
+	console.log(orderId);
+	
+	let amount = parseInt($('#amount').text().trim());
+	console.log($('#amount').text().trim());
+	console.log(amount);
 
 	async function kakaoPay() {
 		const response = await PortOne.requestPayment({
@@ -89,7 +97,7 @@
 			paymentId : `payment-${crypto.randomUUID()}`,
 			// 추후 구현 예정
 			orderName : "API 테스트 결제",
-			totalAmount : 100,
+			totalAmount : amount,
 			currency : "CURRENCY_KRW",
 			payMethod : "EASY_PAY",
 			easyPay : {
@@ -120,6 +128,16 @@
 	}
 	
 	async function nicePayments() {
+		let orderId = parseInt($('#orderId').text().trim());
+		console.log(orderId);
+		let zonecode = $("#zonecode").val();
+		let address = $("#address").val();
+		let addressDetail = $("#addressDetail").val();
+		let mergedAddress = "(" + zonecode + ")" + address
+				+ " " + addressDetail;
+		console.log(mergedAddress);
+		let paymentMethod = $("#payment").val();
+		console.log(paymentMethod);
 		let paymentId = crypto.randomUUID();
 		console.log(paymentId);
 		const response = await PortOne.requestPayment({
@@ -130,7 +148,7 @@
 			paymentId : "payment-" + paymentId,
 			// 추후 구현 예정
 			orderName : "API 테스트 결제",
-			totalAmount : 100,
+			totalAmount : amount,
 			currency : "KRW",
 			payMethod: "CARD",
 		    card: {},
@@ -144,6 +162,18 @@
 
 		// 고객사 서버에서 /payment/complete 엔드포인트를 구현해야 합니다.
 		// (다음 목차에서 설명합니다)
+		
+		let payment = {
+			paymentId: paymentId
+			, address: mergedAddress
+			, orderId: orderId
+			, paymentMethod: paymentMethod
+		}
+		
+		let resultJson = JSON.stringify(payment);
+		
+		console.log(resultJson);
+		
 		const notified = await
 		fetch(`/payment/complete`, {
 			method : "POST",
@@ -151,11 +181,14 @@
 				"Content-Type" : "application/json"
 			},
 			// paymentId와 주문 정보를 서버에 전달합니다
-			body : JSON.stringify({
-				paymentId: paymentId
-			// 주문 정보...
-			}),
+			body : resultJson
 		});
+		
+		console.log(notified);
+		
+		if (notified.status == 200) {
+			  location.href = "/order/result";
+		  }
 	}
 
 	$(document).ready(

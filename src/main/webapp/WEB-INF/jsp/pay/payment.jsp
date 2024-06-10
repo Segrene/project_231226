@@ -47,6 +47,10 @@ async function requestPayment() {
 	      // 주문 정보...
 	    }),
 	  });
+	  
+	  if (notified.code == 200) {
+		  location.href = "/main/main";
+	  }
 	}
 $(document).ready(function() {
 	console.log("start");

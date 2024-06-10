@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ProjectSC.order.mapper.OrderMapper">
+ 	<insert id="insertPreOrder" parameterType="com.ProjectSC.order.domain.Order" useGeneratedKeys="true" keyProperty="id">
+ 		INSERT INTO
+ 			`preOrder`
+ 			(
+ 				`userId`
+ 				, `amount`
+ 				, `deliveryFee`
+ 				, `totalAmount`
+ 			)
+ 			VALUES
+ 			(
+ 				#{userId}
+ 				, #{amount}
+ 				, #{deliveryFee}
+ 				, #{totalAmount}
+ 			)
+ 	</insert>
+ 	<select id="selectPreOrder" parameterType="int" resultType="com.ProjectSC.order.domain.Order">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `amount`
+ 			, `deliveryFee`
+ 			, `totalAmount`
+ 		FROM
+ 			`preOrder`
+ 		WHERE
+ 			`id` = #{orderId}
+ 	</select>
+ 	<insert id="insertOrder" parameterType="Map">
+ 		INSERT INTO
+ 			`order`
+ 			(
+ 				`userId`
+ 				, `amount`
+ 				, `deliveryFee`
+ 				, `totalAmount`
+ 				, `address`
+ 				, `receiver`
+ 				, `contact`
+ 				, `status`
+ 				, `paymentMethod`
+ 				, `paymentId`
+ 				, `estimated`
+ 			)
+ 			VALUES
+ 			(
+ 				#{userId}
+ 				, #{amount}
+ 				, #{deliveryFee}
+ 				, #{totalAmount}
+ 				, #{address}
+ 				, #{receiver}
+ 				, #{contact}
+ 				, #{status}
+ 				, #{paymentMethod}
+ 				, #{paymentId}
+ 				, #{estimated}
+ 			)
+ 	</insert>
+ </mapper>

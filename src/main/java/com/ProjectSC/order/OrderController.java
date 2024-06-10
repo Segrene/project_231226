@@ -28,4 +28,13 @@ public class OrderController {
 		model.addAttribute("order", order);
 		return "order/order";
 	}
+	
+	@GetMapping("/result")
+	public String orderResult(Model model, HttpSession session) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			return "user/login";
+		}
+		return "order/orderResult";
+	}
 }
