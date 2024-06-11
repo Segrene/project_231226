@@ -47,20 +47,46 @@ public class OrderBO {
 		return orderMapper.selectPreOrder(orderId);
 	}
 	
+	public int deletePreOrder(int orderId) {
+		return orderMapper.deletePreOrder(orderId);
+	}
+	
 	public Order orderCompletion(Order order) {
 		return order;
 	}
 
-	public void addOrder(int orderId, String address, int paymentMethod, String receiver, String contact,
+	public int addOrder(int preOrderId, String address, int paymentMethod, String receiver, String contact,
 			String paymentId) {
-		Order preOrder = orderMapper.selectPreOrder(orderId);
+		Order preOrder = orderMapper.selectPreOrder(preOrderId);
 		int userId = preOrder.getUserId();
 		int amount = preOrder.getAmount();
 		int deliveryFee = preOrder.getDeliveryFee();
 		int totalAmount = preOrder.getTotalAmount();
 		String status = "결제 확인";
 		LocalDateTime estimated = LocalDateTime.now();
-		orderMapper.insertOrder(userId, amount, deliveryFee, totalAmount, address, receiver, contact, paymentMethod, paymentId, estimated, status);
-		
+		Order order = new Order();
+		order.setUserId(userId);
+		order.setAmount(amount);
+		order.setDeliveryFee(deliveryFee);
+		order.setTotalAmount(totalAmount);
+		order.setAddress(address);
+		order.setReceiver(receiver);
+		order.setContact(contact);
+		order.setPaymentMethod(paymentMethod);
+		order.setPaymentId(paymentId);
+		order.setEstimated(estimated);
+		order.setStatus(status);
+		orderMapper.insertOrder(order);
+		int orderId = order.getId();
+		deletePreOrder(preOrderId);
+		return orderId;
+	}
+
+	public Order getOrder(int orderId) {
+		return orderMapper.selectOrder(orderId);
+	}
+
+	public Order getLatestOrder() {
+		return orderMapper.selectLatestOrder();
 	}
 }

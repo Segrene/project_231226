@@ -32,7 +32,14 @@
  		WHERE
  			`id` = #{orderId}
  	</select>
- 	<insert id="insertOrder" parameterType="Map">
+ 	<delete id="deletePreOrder" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`preOrder`
+ 		WHERE
+ 			`id` = #{orderId}
+ 	</delete>
+ 	<insert id="insertOrder" parameterType="com.ProjectSC.order.domain.Order" useGeneratedKeys="true" keyProperty="id">
  		INSERT INTO
  			`order`
  			(
@@ -63,4 +70,50 @@
  				, #{estimated}
  			)
  	</insert>
+ 	<select id="selectOrder" parameterType="int" resultType="com.ProjectSC.order.domain.Order">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `receiver`
+ 			, `contact`
+ 			, `address`
+ 			, `status`
+ 			, `paymentMethod`
+ 			, `paymentId`
+ 			, `amount`
+ 			, `deliveryFee`
+ 			, `totalAmount`
+ 			, `estimated`
+ 			, `delivered`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`order`
+ 		WHERE
+ 			`id` = #{orderId}
+ 	</select>
+ 	<select id="selectOrder" parameterType="int" resultType="com.ProjectSC.order.domain.Order">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `receiver`
+ 			, `contact`
+ 			, `address`
+ 			, `status`
+ 			, `paymentMethod`
+ 			, `paymentId`
+ 			, `amount`
+ 			, `deliveryFee`
+ 			, `totalAmount`
+ 			, `estimated`
+ 			, `delivered`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`order`
+ 		ORDER BY
+ 			`createdAt`
+ 		DESC
+ 		LIMIT 1
+ 	</select>
  </mapper>

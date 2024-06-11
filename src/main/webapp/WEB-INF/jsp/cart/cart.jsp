@@ -68,8 +68,10 @@
 <script>
 $(document).ready(function() {
 	let productPrice = 0;
+	let productCount = 0;
 	<c:forEach items="${cart}" var="cart">
 		productPrice += ${cart.productInfo.finalPrice * cart.cart.qty};
+		productCount++;
 	</c:forEach>
 	console.log(productPrice);
 	$('.cartProductPrice').text(productPrice);
@@ -109,6 +111,10 @@ $(document).ready(function() {
 		});
 	});
 	$('.buyBtn').on('click', function(e) {
+		if (productCount < 1) {
+			alert("상품이 없습니다");
+			return false;
+		}
 		location.href = "/order/order-view";
 	});
 });

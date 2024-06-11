@@ -26,11 +26,12 @@ public class PaymentBO {
 		String url = "/payments/payment-" + paymentId;
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> paymentMap = webClient.get().uri(url).retrieve()
-				.bodyToMono(Map.class).block();
+				.bodyToMono(Map.class).block(); // API의 결과값을 받을 객체를 올바르게 만드는 것에 실패하여 임시로 Map에 값 저장
 		Order preOrder = orderBO.getPreOrder(orderId);
 		if (Integer.parseInt(paymentMap.get("amount").toString().split(", ")[0].split("=")[1]) != preOrder.getTotalAmount()) {
 			result.put("code", 500);
 			result.put("error_message", "결제 금액이 올바르지 않습니다.");
+			paymentCancel(paymentId);
 		} else {
 			result.put("code", 200);
 			result.put("result", "성공");

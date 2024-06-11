@@ -57,6 +57,8 @@
 							</div>
 							<input type="text" class="form-control py-1" id="address" placeholder="주소">
 							<input type="text" class="form-control py-1" id="addressDetail" placeholder="상세주소">
+							<input type="text" class="form-control py-1" id="receiver" placeholder="수령인">
+							<input type="text" class="form-control py-1" id="contact" placeholder="연락처">
 						</div>
 						<div class="font-weight-light text20">결제방법</div>
 						<div class="input-group mb-3 py-2">
@@ -64,8 +66,8 @@
 								<label class="input-group-text" for="inputGroupSelect01">결제방식</label>
 							</div>
 							<select class="custom-select" id="payment">
-								<option selected value="0">나이스페이먼츠</option>
-								<option value="1">카카오페이 직연동</option>
+								<option selected value="0">통합 결제</option>
+								<option value="1" disabled>카카오페이 직연동</option>
 							</select>
 						</div>
 						<div>
@@ -133,6 +135,8 @@
 		let zonecode = $("#zonecode").val();
 		let address = $("#address").val();
 		let addressDetail = $("#addressDetail").val();
+		let receiver = $("#receiver").val();
+		let contact = $("#contact").val();
 		let mergedAddress = "(" + zonecode + ")" + address
 				+ " " + addressDetail;
 		console.log(mergedAddress);
@@ -168,6 +172,8 @@
 			, address: mergedAddress
 			, orderId: orderId
 			, paymentMethod: paymentMethod
+			, receiver: receiver
+			, contact: contact
 		}
 		
 		let resultJson = JSON.stringify(payment);
@@ -184,9 +190,7 @@
 			body : resultJson
 		});
 		
-		console.log(notified);
-		
-		if (notified.status == 200) {
+		if (data.code == 200) {
 			  location.href = "/order/result";
 		  }
 	}

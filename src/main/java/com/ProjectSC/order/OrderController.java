@@ -30,11 +30,12 @@ public class OrderController {
 	}
 	
 	@GetMapping("/result")
-	public String orderResult(Model model, HttpSession session) {
+	public String orderResult(int orderId, Model model, HttpSession session) {
 		Integer userId = (Integer)session.getAttribute("userId");
 		if (userId == null) {
 			return "user/login";
 		}
+		Order order = orderBO.getLatestOrder();
 		return "order/orderResult";
 	}
 }

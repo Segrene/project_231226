@@ -14,9 +14,12 @@ public interface OrderMapper {
 
 	Order selectPreOrder(int orderId);
 
-	void insertOrder(@Param("userId")int userId, @Param("amount")int amount, @Param("deliveryFee")int deliveryFee, 
-			@Param("totalAmount")int totalAmount, @Param("address")String address, @Param("receiver")String receiver,
-			@Param("contact")String contact, @Param("paymentMethod")int paymentMethod, @Param("paymentId")String paymentId, 
-			@Param("estimated")LocalDateTime estimated, @Param("status")String status);
+	int insertOrder(Order order);
+
+	Order selectOrder(int orderId);
+
+	int deletePreOrder(int orderId);
+
+	Order selectLatestOrder();
 	
 }

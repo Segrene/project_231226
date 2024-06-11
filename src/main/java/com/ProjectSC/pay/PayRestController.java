@@ -3,7 +3,6 @@ package com.ProjectSC.pay;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,15 +28,16 @@ public class PayRestController {
 	public Map<String, Object> payComplete(@RequestBody HashMap<String, Object> Map, 
 			HttpSession session) {
 		String paymentId = Map.get("paymentId").toString();
-		int orderId = Integer.parseInt(Map.get("orderId").toString());
+		int preOrderId = Integer.parseInt(Map.get("orderId").toString());
 		String address = Map.get("address").toString();
+		String receiver = Map.get("receiver").toString();
+		String contact = Map.get("contact").toString();
 		int paymentMethod = Integer.parseInt(Map.get("paymentMethod").toString());
 		Map<String, Object> result = new HashMap<>();
-		result = paymentBO.paymentCompletion(paymentId, orderId);
+		result = paymentBO.paymentCompletion(paymentId, preOrderId);
 		if (Integer.parseInt(result.get("code").toString()) == 200) {
-			String receiver = "tester1";
-			String contact = "None";
-			orderBO.addOrder(orderId, address, paymentMethod, receiver, contact, paymentId);
+			int orderId = orderBO.addOrder(preOrderId, address, paymentMethod, receiver, contact, paymentId);
+			result.put("orderId", orderId);
 		}
 		return result;
 	}
