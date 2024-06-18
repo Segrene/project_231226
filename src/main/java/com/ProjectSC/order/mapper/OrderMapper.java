@@ -20,6 +20,6 @@ public interface OrderMapper {
 
 	int deletePreOrder(int orderId);
 
-	Order selectLatestOrder();
+	Order selectLatestOrder(int userId);
 	
 }

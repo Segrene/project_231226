@@ -63,7 +63,7 @@ public class OrderBO {
 		int deliveryFee = preOrder.getDeliveryFee();
 		int totalAmount = preOrder.getTotalAmount();
 		String status = "결제 확인";
-		LocalDateTime estimated = LocalDateTime.now();
+		LocalDateTime estimated = LocalDateTime.now().plusDays(3);
 		Order order = new Order();
 		order.setUserId(userId);
 		order.setAmount(amount);
@@ -86,7 +86,7 @@ public class OrderBO {
 		return orderMapper.selectOrder(orderId);
 	}
 
-	public Order getLatestOrder() {
-		return orderMapper.selectLatestOrder();
+	public Order getLatestOrder(int userId) {
+		return orderMapper.selectLatestOrder(userId);
 	}
 }

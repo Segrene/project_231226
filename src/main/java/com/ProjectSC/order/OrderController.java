@@ -21,21 +21,16 @@ public class OrderController {
 	@GetMapping("/order-view")
 	public String orderView(Model model, HttpSession session) {
 		Integer userId = (Integer)session.getAttribute("userId");
-		if (userId == null) {
-			return "user/login";
-		}
 		Order order = orderBO.orderPrepare(userId);
 		model.addAttribute("order", order);
 		return "order/order";
 	}
 	
 	@GetMapping("/result")
-	public String orderResult(int orderId, Model model, HttpSession session) {
+	public String orderResult(Model model, HttpSession session) {
 		Integer userId = (Integer)session.getAttribute("userId");
-		if (userId == null) {
-			return "user/login";
-		}
-		Order order = orderBO.getLatestOrder();
+		Order order = orderBO.getLatestOrder(userId);
+		model.addAttribute("order", order);
 		return "order/orderResult";
 	}
 }

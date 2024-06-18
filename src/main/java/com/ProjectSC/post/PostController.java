@@ -46,7 +46,7 @@ public class PostController {
 	
 	@GetMapping("/postId/{id}")
 	public String productDetailView(@PathVariable("id")int id, Model model) {
-		model.addAttribute("viewName", "post/postetail");
+		model.addAttribute("viewName", "post/post");
 		PostView post = postBO.getPostViewById(id);
 		model.addAttribute("post", post);
 		return "template/layout";
@@ -54,7 +54,7 @@ public class PostController {
 	
 	@GetMapping("/postCreate-view")
 	public String productRegisterView(Model model) {
-		model.addAttribute("viewName", "product/postCreate");
+		model.addAttribute("viewName", "post/postCreate");
 		List<Category> boardList = categoryBO.getCategoryList(1);
 		model.addAttribute("boardList", boardList);
 		return "template/layout";

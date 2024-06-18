@@ -92,7 +92,7 @@
  		WHERE
  			`id` = #{orderId}
  	</select>
- 	<select id="selectOrder" parameterType="int" resultType="com.ProjectSC.order.domain.Order">
+ 	<select id="selectLatestOrder" parameterType="int" resultType="com.ProjectSC.order.domain.Order">
  		SELECT
  			`id`
  			, `userId`
@@ -111,6 +111,8 @@
  			, `updatedAt`
  		FROM
  			`order`
+ 		WHERE
+ 			`userId` = #{userId}
  		ORDER BY
  			`createdAt`
  		DESC
