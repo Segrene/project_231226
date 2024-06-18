@@ -23,9 +23,6 @@ public class CartController {
 	@GetMapping("cart-view")
 	public String cartView(HttpSession session, Model model) {
 		Integer userId = (Integer)session.getAttribute("userId");
-		if (userId == null) {
-			return "user/login";
-		}
 		List<CartView> cartList = cartBO.getCartList(userId);
 		model.addAttribute("cart", cartList);
 		return "cart/cart";

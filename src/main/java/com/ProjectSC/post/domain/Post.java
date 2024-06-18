@@ -17,4 +17,6 @@ public class Post {
 	private Integer related;
 	private Date createdAt;
 	private Date updatedAt;
+	private String categoryName;
+	private String subCategoryName;
 }

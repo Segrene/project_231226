@@ -111,6 +111,8 @@
  			, `updatedAt`
  		FROM
  			`order`
+ 		WHERE
+ 			`userId` = #{userId}
  		ORDER BY
  			`createdAt`
  		DESC
