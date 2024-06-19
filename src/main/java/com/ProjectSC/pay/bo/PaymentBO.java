@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ProjectSC.order.bo.OrderBO;
 import com.ProjectSC.order.domain.Order;
+
+import reactor.core.publisher.Mono;
 
 @Service
 public class PaymentBO {
@@ -26,7 +29,15 @@ public class PaymentBO {
 		String url = "/payments/payment-" + paymentId;
 		Map<String, Object> result = new HashMap<>();
 		Map<String, Object> paymentMap = webClient.get().uri(url).retrieve()
-				.bodyToMono(Map.class).block(); // API의 결과값을 받을 객체를 올바르게 만드는 것에 실패하여 임시로 Map에 값 저장
+				.onStatus(httpStatus -> httpStatus != HttpStatus.OK,
+				    clientResponse -> {
+				      return clientResponse.createException()
+				         .flatMap(it -> Mono.error(new RuntimeException("code : " + clientResponse.statusCode())));
+				      })
+				.bodyToMono(Map.class)
+				.onErrorResume(throwable -> {
+				    return Mono.error(new RuntimeException(throwable));
+				}).block();
 		Order preOrder = orderBO.getPreOrder(orderId);
 		if (Integer.parseInt(paymentMap.get("amount").toString().split(", ")[0].split("=")[1]) != preOrder.getTotalAmount()) {
 			result.put("code", 500);
@@ -42,7 +53,15 @@ public class PaymentBO {
 	public Map<String, Object> paymentCancel (String paymentId) {
 		String url = "/payments/payment-" + paymentId + "/cancel";
 		Map<String, Object> paymentCancelMap = webClient.post().uri(url).bodyValue("{\"reason\":\"reason\"}").retrieve()
-				.bodyToMono(Map.class).block();
+				.onStatus(httpStatus -> httpStatus != HttpStatus.OK,
+			    clientResponse -> {
+			      return clientResponse.createException()
+			         .flatMap(it -> Mono.error(new RuntimeException("code : " + clientResponse.statusCode())));
+			      })
+				.bodyToMono(Map.class)
+				.onErrorResume(throwable -> {
+				    return Mono.error(new RuntimeException(throwable));
+				}).block();
 		return paymentCancelMap;
 	}
 	

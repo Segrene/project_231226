@@ -188,11 +188,9 @@
 			},
 			// paymentId와 주문 정보를 서버에 전달합니다
 			body : resultJson
-		});
-		
-		if (data.code == 200) {
-			  location.href = "/order/result";
-		  }
+		}).then(location.href = "/order/result")
+		  .catch((error) => console.log("error:", error));
+		  
 	}
 
 	$(document).ready(
